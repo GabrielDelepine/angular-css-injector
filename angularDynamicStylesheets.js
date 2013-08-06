@@ -8,13 +8,10 @@
 * To Public License, Version 2, as published by Sam Hocevar. See
 * http://sam.zoy.org/wtfpl/COPYING for more details.
 */
-var angularDynamicStylesheets = angular.module('DynamicStylesheets', []); // Specific module. Optional
-
-// Add the service to the module
-angularDynamicStylesheets.service('dynamicStylesheets', [
-    '$rootScope', 
+angular.module('DynamicStylesheets', [])
+.service('dynamicStylesheets', [
     '$compile', 
-    function($rootScope, $compile) {
+    function($compile) {
 
         var scope = angular.element('head').scope();
    
@@ -29,7 +26,7 @@ angularDynamicStylesheets.service('dynamicStylesheets', [
             {
                 for(var i in scope.stylesheets_service_dynamicStylesheets)
                 {
-                    if(scope.stylesheets_service_dynamicStylesheets[i].href == href) // Unique
+                    if(scope.stylesheets_service_dynamicStylesheets[i].href == href) // An url can't be added more than once
                         return;
                 }
             }
