@@ -12,9 +12,9 @@ angularDynamicStylesheets is a AngularJS service allows you to load dynamically 
 How to use ?
 ====
 
-1. First, add the module "" to your AngularJS apps
+1. First, add the module "DynamicStylesheets" to your AngularJS apps
 
-     angular.module('myModule', ['DynamicStylesheets']);
+     angular.module('yourModule', ['DynamicStylesheets']);
 
 
 2. Get this service where you want and add your css files in your HTML page ! Example here in a controller :
