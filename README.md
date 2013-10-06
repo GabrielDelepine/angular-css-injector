@@ -23,3 +23,15 @@ How to use ?
      {
          dynamicStylesheets.add("/path/to/your/css/file.css");
      }
+
+3. To remove all added CSS files when the page change (in a single page application), set the single page mode :
+     function MyCtrl($scope, dynamicStylesheets)
+     {
+         dynamicStylesheets.setSinglePageMode(true);
+     }
+
+4. To remove manually all added CSS files, call the function removeAll :
+     function MyCtrl($scope, dynamicStylesheets)
+     {
+         dynamicStylesheets.removeAll();
+     }
