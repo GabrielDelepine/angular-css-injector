@@ -17,7 +17,6 @@ angular.module('DynamicStylesheets', [])
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
         $rootScope.$on('$locationChangeStart', function()
         {
-            console.log('locationChangeStart in dynamicStylesheets');
             if(singlePageMode === true)
                 removeAll();
         });
