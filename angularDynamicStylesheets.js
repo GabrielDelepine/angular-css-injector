@@ -1,41 +1,78 @@
 /*
-* angularDynamicStylesheets v0.1.0
+* angularDynamicStylesheets v0.2.0
 * Copyleft 2013 Yappli
-*
-* This program is free software. It comes without any warranty, to
-* the extent permitted by applicable law. You can redistribute it
-* and/or modify it under the terms of the Do What The Fuck You Want
-* To Public License, Version 2, as published by Sam Hocevar. See
-* http://sam.zoy.org/wtfpl/COPYING for more details.
+* License: MIT
+* https://github.com/Yappli/angularDynamicStylesheets/
 */
 angular.module('DynamicStylesheets', [])
 .service('dynamicStylesheets', [
     '$compile', 
-    function($compile) {
-
-        var scope = angular.element('head').scope();
-   
+    '$rootScope',
+    function($compile, $rootScope)
+    {
+        // Variables
+        var scope;        
+        var singlePageMode = false;
+        
+        // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
+        $rootScope.$on('$locationChangeStart', function()
+        {
+            console.log('locationChangeStart in dynamicStylesheets');
+            if(singlePageMode === true)
+                removeAll();
+        });
+        
+        // Always called by the functions `addStylesheet` and `removeAll` to initialize the variable `scope`
+        var _initScope = function()
+        {
+            if(scope === undefined)
+                scope = angular.element('head').scope();
+        };
+        
+        // Used to add a CSS files in the head tag of the page
         var addStylesheet = function(href)
         {
-            if(scope.stylesheets_service_dynamicStylesheets === undefined)
+            _initScope();
+            
+            if(scope.href_array_dynamicStylesheets === undefined)
             {
-                angular.element('head').scope().stylesheets_service_dynamicStylesheets = [];
-                angular.element('head').append($compile("<link data-ng-repeat='stylesheet in stylesheets_service_dynamicStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
+                scope.href_array_dynamicStylesheets = [];
+                angular.element('head').append($compile("<link data-ng-repeat='stylesheet in href_array_dynamicStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
             }
             else
             {
-                for(var i in scope.stylesheets_service_dynamicStylesheets)
+                for(var i in scope.href_array_dynamicStylesheets)
                 {
-                    if(scope.stylesheets_service_dynamicStylesheets[i].href == href) // An url can't be added more than once
+                    if(scope.href_array_dynamicStylesheets[i].href == href) // An url can't be added more than once. I use a loop FOR, not the function indexOf to make IE < 9 compatible
                         return;
                 }
             }
             
-            scope.stylesheets_service_dynamicStylesheets.push({href: href});
+            scope.href_array_dynamicStylesheets.push({href: href});
+        };
+        
+        // Used to remove all of the CSS files added with the function `addStylesheet`
+        var removeAll = function()
+        {
+            _initScope();
+            
+            if(scope.href_array_dynamicStylesheets !== undefined)
+                scope.href_array_dynamicStylesheets = []; // Make it empty
+        };
+        
+        // Used to set the boolean `singlePageMode`. If singlePageMode===TRUE, the function `removeAll` will be call every time the page change (based on the angular event `$locationChangeStart`)
+        var setSinglePageMode = function(bool)
+        {
+            if(bool !== true && bool !== false)
+                throw("Angular service `dynamicStylesheets` : function `setSinglePageMode` : Error parameter, boolean required.");
+                
+            singlePageMode = bool;
         };
 
         return {
             add: addStylesheet,
+            removeAll: removeAll,
+            setSinglePageMode: setSinglePageMode,
         };
     }
 ]);
