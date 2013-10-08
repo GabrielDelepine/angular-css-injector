@@ -35,3 +35,20 @@ How to use ?
      {
          dynamicStylesheets.removeAll();
      }
+
+====
+Compatibility
+====
+IE >= 8
+FF >= 3.5
+Chrome >= 4
+
+To make it IE7 compatible, delete "queryselector" in the code but you will need to include jQuery in your page.
+About "queryselector" compatibility : http://caniuse.com/queryselector
+
+====
+Dependencies
+====
+No one (only angular of course).
+Code tested with angular 1.0.8
+Opera >= 10
