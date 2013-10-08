@@ -25,7 +25,7 @@ angular.module('DynamicStylesheets', [])
         var _initScope = function()
         {
             if(scope === undefined)
-                scope = angular.element('head').scope();
+                scope = angular.element(document.querySelector('head')).scope();
         };
         
         // Used to add a CSS files in the head tag of the page
@@ -36,7 +36,7 @@ angular.module('DynamicStylesheets', [])
             if(scope.href_array_dynamicStylesheets === undefined)
             {
                 scope.href_array_dynamicStylesheets = [];
-                angular.element('head').append($compile("<link data-ng-repeat='stylesheet in href_array_dynamicStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
+                angular.element(document.querySelector('head')).append($compile("<link data-ng-repeat='stylesheet in href_array_dynamicStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
             }
             else
             {
