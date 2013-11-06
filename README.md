@@ -15,11 +15,11 @@ How to use ?
 1. Your angular's app must be defined on the HTML tag of your page
 
 ```html
-<html ng-app="my.app"
+<html ng-app="myApp"
 ```
 2. Add the module "angular.css.injector" to your AngularJS apps
 ```javascript
-     angular.module('yourModule', ['angular.css.injector']);
+     angular.module('myApp', ['angular.css.injector']);
 ```
 
 3. Get this service where you want and add your css files in your HTML page ! Example here in a controller :
