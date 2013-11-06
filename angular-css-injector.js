@@ -1,21 +1,22 @@
 /*
-* angularDynamicStylesheets v0.2.2
-* Copyleft 2013 Yappli
+* angular-css-injector v0.2.2
+* Written by Gabriel Delépine
 * License: MIT
-* https://github.com/Yappli/angularDynamicStylesheets/
+* https://github.com/Yappli/angular-css-injector/
 */
-angular.module('DynamicStylesheets', [])
-.service('dynamicStylesheets', [
+angular.module('angular.css.injector', [])
+.service('cssInjector', [
     '$compile', 
     '$rootScope',
     function($compile, $rootScope)
     {
         // Variables
-        var scope;        
-        var singlePageMode = false;
+        var singlePageMode = false,
+            head = angular.element(document.querySelector('head')), // TO make the code IE < 8 compatible, include jQuery in your page and replace "angular.element(document.querySelector('head'))" by "angular.element('head')"
+            scope;  
         
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
-        $rootScope.$on('$viewContentLoaded', function()
+        $rootScope.$on('$locationChangeStart', function()
         {
             if(singlePageMode === true)
                 removeAll();
@@ -25,7 +26,7 @@ angular.module('DynamicStylesheets', [])
         var _initScope = function()
         {
             if(scope === undefined)
-                scope = angular.element(document.querySelector('head')).scope();
+                scope = head.scope(); // We initialise head's scope in a separated function because it is not defined at the time of the initialisation of the service.
         };
         
         // Used to add a CSS files in the head tag of the page
@@ -33,21 +34,21 @@ angular.module('DynamicStylesheets', [])
         {
             _initScope();
             
-            if(scope.href_array_dynamicStylesheets === undefined)
+            if(scope.injectedStylesheets === undefined)
             {
-                scope.href_array_dynamicStylesheets = [];
-                angular.element(document.querySelector('head')).append($compile("<link data-ng-repeat='stylesheet in href_array_dynamicStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
+                scope.injectedStylesheets = [];
+                head.append($compile("<link data-ng-repeat='stylesheet in injectedStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
             }
             else
             {
-                for(var i in scope.href_array_dynamicStylesheets)
+                for(var i in scope.injectedStylesheets)
                 {
-                    if(scope.href_array_dynamicStylesheets[i].href == href) // An url can't be added more than once. I use a loop FOR, not the function indexOf to make IE < 9 compatible
+                    if(scope.injectedStylesheets[i].href == href) // An url can't be added more than once. I use a loop FOR, not the function indexOf to make the code IE < 9 compatible
                         return;
                 }
             }
             
-            scope.href_array_dynamicStylesheets.push({href: href});
+            scope.injectedStylesheets.push({href: href});
         };
         
         // Used to remove all of the CSS files added with the function `addStylesheet`
@@ -55,15 +56,15 @@ angular.module('DynamicStylesheets', [])
         {
             _initScope();
             
-            if(scope.href_array_dynamicStylesheets !== undefined)
-                scope.href_array_dynamicStylesheets = []; // Make it empty
+            if(scope.injectedStylesheets !== undefined)
+                scope.injectedStylesheets = []; // Make it empty
         };
         
         // Used to set the boolean `singlePageMode`. If singlePageMode===TRUE, the function `removeAll` will be call every time the page change (based on the angular event `$locationChangeStart`)
         var setSinglePageMode = function(bool)
         {
             if(bool !== true && bool !== false)
-                throw("Angular service `dynamicStylesheets` : function `setSinglePageMode` : Error parameter, boolean required.");
+                throw("Angular service `cssInjector` : function `setSinglePageMode` : Error parameter, boolean required.");
                 
             singlePageMode = bool;
         };
