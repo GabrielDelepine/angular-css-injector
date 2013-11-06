@@ -12,29 +12,38 @@ angular-css-injector is a AngularJS service allows you to load dynamically CSS f
 How to use ?
 ====
 
-1. First, add the module "angular.css.injector" to your AngularJS apps
+1. Your angular's app must be defined on the HTML tag of your page
 
+```html
+<html ng-app="my.app"
+```
+2. Add the module "angular.css.injector" to your AngularJS apps
+```javascript
      angular.module('yourModule', ['angular.css.injector']);
+```
 
-
-2. Get this service where you want and add your css files in your HTML page ! Example here in a controller :
-
+3. Get this service where you want and add your css files in your HTML page ! Example here in a controller :
+```javascript
      function MyCtrl($scope, cssInjector)
      {
          cssInjector.add("/path/to/your/css/file.css");
      }
-
-3. To remove all added CSS files when the page change (in a single page application), set the single page mode :
+```
+4. To remove all added CSS files when the page change (in a single page application), set the single page mode :
+```javascript
      function MyCtrl($scope, cssInjector)
      {
          cssInjector.setSinglePageMode(true);
      }
+```
 
-4. To remove manually all added CSS files, call the function removeAll :
+5. To remove manually all added CSS files, call the function removeAll :
+```javascript
      function MyCtrl($scope, cssInjector)
      {
          cssInjector.removeAll();
      }
+```
 
 ====
 Compatibility
