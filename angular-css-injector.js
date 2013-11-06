@@ -1,5 +1,5 @@
 /*
-* angularDynamicStylesheets v0.2.0
+* angularDynamicStylesheets v0.2.2
 * Copyleft 2013 Yappli
 * License: MIT
 * https://github.com/Yappli/angularDynamicStylesheets/
