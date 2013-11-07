@@ -1,5 +1,5 @@
 /*
-* angular-css-injector v0.2.2
+* angular-css-injector v1.0
 * Written by Gabriel Delépine
 * License: MIT
 * https://github.com/Yappli/angular-css-injector/
@@ -12,7 +12,7 @@ angular.module('angular.css.injector', [])
     {
         // Variables
         var singlePageMode = false,
-            head = angular.element(document.querySelector('head')), // TO make the code IE < 8 compatible, include jQuery in your page and replace "angular.element(document.querySelector('head'))" by "angular.element('head')"
+            head = angular.element(jQuery === undefined ? document.querySelector('head') : 'head'), // TO make the code IE < 8 compatible, include jQuery in your page
             scope;  
         
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
