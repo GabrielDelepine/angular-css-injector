@@ -63,7 +63,13 @@ About "queryselector" compatibility : http://caniuse.com/queryselector
 ====
 Dependencies
 ====
-No one (only angular of course).
+No one (only angular of course) for major browser.
+jQuery if you need to make your website IE6 & IE7 compatible.
 
 Code tested with angular 1.0.8
 
+====
+Previous version
+====
+The module and the service name changed name from v1.0
+Be careful and update your code if you use a previous version < 1.0
