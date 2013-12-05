@@ -12,7 +12,7 @@ angular.module('angular.css.injector', [])
     {
         // Variables
         var singlePageMode = false,
-            head = angular.element(jQuery === undefined ? document.querySelector('head') : 'head'), // TO make the code IE < 8 compatible, include jQuery in your page
+            head = angular.element(typeof jQuery == "undefined" ? document.querySelector('head') : 'head'), // TO make the code IE < 8 compatible, include jQuery in your page
             scope;  
         
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
