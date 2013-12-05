@@ -66,7 +66,7 @@ Dependencies
 No one (only angular of course) for major browser.
 jQuery if you need to make your website IE6 & IE7 compatible.
 
-Code tested with angular 1.0.8
+Code tested with angular 1.0.8 & angular 1.2.3
 
 ====
 Previous version
