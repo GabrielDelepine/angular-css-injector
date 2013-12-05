@@ -1,5 +1,5 @@
 /*
-* angular-css-injector v1.0
+* angular-css-injector v1.0.1
 * Written by Gabriel Delépine
 * License: MIT
 * https://github.com/Yappli/angular-css-injector/
