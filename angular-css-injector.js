@@ -5,11 +5,10 @@
 * https://github.com/Yappli/angular-css-injector/
 */
 angular.module('angular.css.injector', [])
-.service('cssInjector', [
-    '$compile', 
-    '$rootScope',
-    function($compile, $rootScope)
-    {
+.provider('cssInjector', function() {
+	var singlePageMode = false;
+	
+	function CssInjector($compile, $rootScope){
         // Variables
         var singlePageMode = false,
             head = angular.element(typeof jQuery == "undefined" ? document.querySelector('head') : 'head'), // TO make the code IE < 8 compatible, include jQuery in your page
@@ -59,20 +58,19 @@ angular.module('angular.css.injector', [])
             if(scope.injectedStylesheets !== undefined)
                 scope.injectedStylesheets = []; // Make it empty
         };
-        
-        // Used to set the boolean `singlePageMode`. If singlePageMode===TRUE, the function `removeAll` will be call every time the page change (based on the angular event `$locationChangeStart`)
-        var setSinglePageMode = function(bool)
-        {
-            if(bool !== true && bool !== false)
-                throw("Angular service `cssInjector` : function `setSinglePageMode` : Error parameter, boolean required.");
-                
-            singlePageMode = bool;
-        };
-
+		
         return {
             add: addStylesheet,
-            removeAll: removeAll,
-            setSinglePageMode: setSinglePageMode,
+            removeAll: removeAll
         };
-    }
-]);
+	}
+	
+	this.$get = function($compile, $rootScope){
+		return new CssInjector($compile, $rootScope);
+	};
+	
+	this.setSinglePageMode = function(mode){
+		singlePageMode = mode;
+		return this;
+	}
+});
