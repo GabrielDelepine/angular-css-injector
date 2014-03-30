@@ -32,7 +32,7 @@ How to use ?
 4. To remove all added CSS files when the page change (in a single page application), configure the `cssInjectorProvider`:
 ```javascript
 	 myApp.config(function(cssInjectorProvider){
-	 	 cssInjecotrProvider.setSinglePageMode(true);
+	 	 cssInjectorProvider.setSinglePageMode(true);
 	 });
 ```
 
