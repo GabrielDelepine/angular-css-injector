@@ -29,12 +29,11 @@ How to use ?
          cssInjector.add("/path/to/your/css/file.css");
      }
 ```
-4. To remove all added CSS files when the page change (in a single page application), set the single page mode :
+4. To remove all added CSS files when the page change (in a single page application), configure the `cssInjectorProvider`:
 ```javascript
-     function MyCtrl($scope, cssInjector)
-     {
-         cssInjector.setSinglePageMode(true);
-     }
+	 myApp.config(function(cssInjectorProvider){
+	 	 cssInjectorProvider.setSinglePageMode(true);
+	 });
 ```
 
 5. To remove manually all added CSS files, call the function removeAll :
