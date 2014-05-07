@@ -1,5 +1,5 @@
 /*
-* angular-css-injector v1.0.3 beta2
+* angular-css-injector v1.0.3
 * Written by Gabriel Delépine
 * Special thanks to (github users) : @kleiinnn
 * License: MIT
