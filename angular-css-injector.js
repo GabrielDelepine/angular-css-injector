@@ -1,5 +1,6 @@
+'use strict';
 /*
-* angular-css-injector v1.0.3
+* angular-css-injector v1.0.3.1
 * Written by Gabriel Delépine
 * Special thanks to (github users) : @kleiinnn
 * License: MIT
