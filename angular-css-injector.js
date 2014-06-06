@@ -8,9 +8,9 @@
 */
 angular.module('angular.css.injector', [])
 .provider('cssInjector', function() {
-	var singlePageMode = false;
-	
-	function CssInjector($compile, $rootScope){
+       var singlePageMode = false;
+  
+        function CssInjector($compile, $rootScope){
         // Variables
         var singlePageMode = false,
             head = angular.element(document.getElementsByTagName('head')[0]),
@@ -63,19 +63,19 @@ angular.module('angular.css.injector', [])
             if(scope.injectedStylesheets !== undefined)
                 scope.injectedStylesheets = []; // Make it empty
         };
-		
+
         return {
             add: addStylesheet,
             removeAll: removeAll
         };
-	}
-	
-	this.$get = function($compile, $rootScope){
-		return new CssInjector($compile, $rootScope);
-	};
-	
-	this.setSinglePageMode = function(mode){
-		singlePageMode = mode;
-		return this;
-	}
+  }
+  
+  this.$get = ['$compile', '$rootScope', function($compile, $rootScope){
+    return new CssInjector($compile, $rootScope);
+  }];
+  
+  this.setSinglePageMode = function(mode){
+    singlePageMode = mode;
+    return this;
+  }
 });
