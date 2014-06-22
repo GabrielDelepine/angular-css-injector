@@ -9,13 +9,13 @@
 angular.module('angular.css.injector', [])
 .provider('cssInjector', function() {
 	var singlePageMode = false;
-	
+
 	function CssInjector($compile, $rootScope){
         // Variables
         var singlePageMode = false,
             head = angular.element(document.getElementsByTagName('head')[0]),
             scope;  
-        
+
         // Capture the event `locationChangeStart` when the url change. If singlePageMode===TRUE, call the function `removeAll`
         $rootScope.$on('$locationChangeStart', function()
         {
@@ -32,12 +32,12 @@ angular.module('angular.css.injector', [])
                     throw("angular.css.injector error : Please initialize your app in the HTML tag and be sure your page has a HEAD tag.");
             }
         };
-        
+
         // Used to add a CSS files in the head tag of the page
         var addStylesheet = function(href)
         {
             _initScope();
-            
+
             if(scope.injectedStylesheets === undefined)
             {
                 scope.injectedStylesheets = [];
@@ -51,29 +51,29 @@ angular.module('angular.css.injector', [])
                         return;
                 }
             }
-            
+
             scope.injectedStylesheets.push({href: href});
         };
-        
+
         // Used to remove all of the CSS files added with the function `addStylesheet`
         var removeAll = function()
         {
             _initScope();
-            
+
             if(scope.injectedStylesheets !== undefined)
                 scope.injectedStylesheets = []; // Make it empty
         };
-		
+
         return {
             add: addStylesheet,
             removeAll: removeAll
         };
 	}
-	
+
 	this.$get = function($compile, $rootScope){
 		return new CssInjector($compile, $rootScope);
 	};
-	
+
 	this.setSinglePageMode = function(mode){
 		singlePageMode = mode;
 		return this;
