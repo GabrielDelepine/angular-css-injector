@@ -1,6 +1,6 @@
 'use strict';
 /*
-* angular-css-injector v1.0.3.1
+* angular-css-injector v1.0.4
 * Written by Gabriel Delépine
 * Special thanks to (github users) : @kleiinnn
 * License: MIT
@@ -83,9 +83,9 @@ angular.module('angular.css.injector', [])
         };
 	}
 
-	this.$get = function($compile, $rootScope){
+	this.$get = ['$compile', '$rootScope', function($compile, $rootScope){
 		return new CssInjector($compile, $rootScope);
-	};
+	}];
 
 	this.setSinglePageMode = function(mode){
 		singlePageMode = mode;
