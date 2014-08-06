@@ -1,0 +1,22 @@
+{
+  "name": "angular-css-injector",
+  "main": "angular-css-injector.js",
+  "version": "1.0.4",
+  "homepage": "https://github.com/Yappli/angular-css-injector",
+  "authors": [
+    "Gabriel Delépine <yappli@github.com>"
+  ],
+  "description": "angularJS service to load dynamically CSS files",
+  "keywords": [
+    "angularjs",
+    "css"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
