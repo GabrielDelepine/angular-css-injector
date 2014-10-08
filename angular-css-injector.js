@@ -10,7 +10,7 @@ angular.module('angular.css.injector', [])
 .provider('cssInjector', function() {
 	var singlePageMode = false;
 
-	function CssInjector($compile, $rootScope){
+	function CssInjector($compile, $rootScope, $rootElement){
         // Variables
         var head = angular.element(document.getElementsByTagName('head')[0]),
             scope;
@@ -27,8 +27,7 @@ angular.module('angular.css.injector', [])
         {
             if(scope === undefined)
             {
-                if((scope = head.scope()) === undefined) // We initialise head's scope in a separated function because it is not defined at the time of the initialisation of the service.
-                    throw("angular.css.injector error : Please initialize your app in the HTML tag and be sure your page has a HEAD tag.");
+                scope = $rootElement.scope();
             }
         };
 
@@ -83,8 +82,8 @@ angular.module('angular.css.injector', [])
         };
 	}
 
-	this.$get = ['$compile', '$rootScope', function($compile, $rootScope){
-		return new CssInjector($compile, $rootScope);
+	this.$get = ['$compile', '$rootScope', '$rootElement', function($compile, $rootScope, $rootElement){
+		return new CssInjector($compile, $rootScope, $rootElement);
 	}];
 
 	this.setSinglePageMode = function(mode){
