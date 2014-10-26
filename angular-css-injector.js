@@ -7,7 +7,7 @@
 * https://github.com/Yappli/angular-css-injector/
 */
 angular.module('angular.css.injector', [])
-.provider('cssInjector', function($interpolateProvider) {
+.provider('cssInjector', ['$interpolateProvider', function($interpolateProvider) {
 	var singlePageMode = false;
 
 	function CssInjector($compile, $rootScope){
@@ -91,4 +91,4 @@ angular.module('angular.css.injector', [])
 		singlePageMode = mode;
 		return this;
 	}
-});
+}]);
