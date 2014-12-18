@@ -7,7 +7,7 @@
 * https://github.com/Yappli/angular-css-injector/
 */
 angular.module('angular.css.injector', [])
-.provider('cssInjector', function() {
+.provider('cssInjector', ['$interpolateProvider', function($interpolateProvider) {
 	var singlePageMode = false;
 
 	function CssInjector($compile, $rootScope, $rootElement){
@@ -39,7 +39,7 @@ angular.module('angular.css.injector', [])
             if(scope.injectedStylesheets === undefined)
             {
                 scope.injectedStylesheets = [];
-                head.append($compile("<link data-ng-repeat='stylesheet in injectedStylesheets' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
+                head.append($compile("<link data-ng-repeat='stylesheet in injectedStylesheets' data-ng-href='" + $interpolateProvider.startSymbol() + "stylesheet.href" + $interpolateProvider.endSymbol() + "' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
             }
             else
             {
@@ -90,4 +90,4 @@ angular.module('angular.css.injector', [])
 		singlePageMode = mode;
 		return this;
 	}
-});
+}]);
