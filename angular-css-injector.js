@@ -10,7 +10,7 @@ angular.module('angular.css.injector', [])
 .provider('cssInjector', ['$interpolateProvider', function($interpolateProvider) {
 	var singlePageMode = false;
 
-	function CssInjector($compile, $rootScope, $rootElement){
+	function CssInjector($compile, $rootScope){
         // Variables
         var head = angular.element(document.getElementsByTagName('head')[0]),
             scope;
@@ -27,7 +27,7 @@ angular.module('angular.css.injector', [])
         {
             if(scope === undefined)
             {
-                scope = $rootElement.scope();
+                scope = $rootScope;
             }
         };
 
@@ -76,8 +76,8 @@ angular.module('angular.css.injector', [])
         };
 	}
 
-	this.$get = ['$compile', '$rootScope', '$rootElement', function($compile, $rootScope, $rootElement){
-		return new CssInjector($compile, $rootScope, $rootElement);
+	this.$get = ['$compile', '$rootScope', function($compile, $rootScope){
+		return new CssInjector($compile, $rootScope);
 	}];
 
 	this.setSinglePageMode = function(mode){
