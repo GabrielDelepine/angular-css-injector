@@ -1,7 +1,7 @@
 =====
-Warning : Angular 1.3
+Compatibility
 ====
-The code is compatible with angular 1.2.x but not with 1.3 yet. Check <a href="https://github.com/Yappli/angular-css-injector/issues/23">#23</a>. PR appreciated.
+The code was tested with angular 1.4.x
 
 Angular-css-injector
 =========================
