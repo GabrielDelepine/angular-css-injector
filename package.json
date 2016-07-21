@@ -1,0 +1,5 @@
+{
+  "name": "angular-css-injector",
+  "description": "angularJS service to load dynamically CSS files",
+  "version": "1.4.1"
+}
