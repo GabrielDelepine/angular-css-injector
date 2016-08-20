@@ -32,39 +32,36 @@ angular.module('angular.css.injector', [])
         };
 
         // Used to add a CSS files in the head tag of the page
-        var addStylesheet = function(href)
-        {
-            _initScope();
+        var addStylesheet = function (href, media){
+                _initScope();
 
-            if(scope.injectedStylesheets === undefined)
-            {
-                scope.injectedStylesheets = [];
-                head.append($compile("<link data-ng-repeat='stylesheet in injectedStylesheets' data-ng-href='" + $interpolateProvider.startSymbol() + "stylesheet.href" + $interpolateProvider.endSymbol() + "' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
-            }
-            else
-            {
-                for(var i in scope.injectedStylesheets)
-                {
-                    if(scope.injectedStylesheets[i].href == href) // An url can't be added more than once. I use a loop FOR, not the function indexOf to make the code IE < 9 compatible
-                        return;
+                media = media || 'screen';
+
+                if (scope.injectedStylesheets === undefined){
+                    scope.injectedStylesheets = [];
+                    head.append($compile("<link data-ng-repeat='stylesheet in injectedStylesheets' media='{{stylesheet.media}}' data-ng-href='{{stylesheet.href}}' rel='stylesheet' />")(scope)); // Found here : http://stackoverflow.com/a/11913182/1662766
                 }
-            }
+                else{
+                    for (var i in scope.injectedStylesheets){
+                        if (scope.injectedStylesheets[i].href == href && scope.injectedStylesheets[i].media == media) // An url can't be added more than once for given media. I use a loop FOR, not the function indexOf to make the code IE < 9 compatible
+                            return;
+                    }
+                }
 
-            scope.injectedStylesheets.push({href: href});
+                scope.injectedStylesheets.push({href: href, media: media});
         };
 
-		var remove = function(href){
-			_initScope();
-
-			if(scope.injectedStylesheets){
-				for(var i = 0; i < scope.injectedStylesheets.length; i++){
-					if(scope.injectedStylesheets[i].href === href){
-						scope.injectedStylesheets.splice(i, 1);
-						return;
-					}
+	var remove = function(href){
+		_initScope();
+		if(scope.injectedStylesheets){
+			for(var i = 0; i < scope.injectedStylesheets.length; i++){
+				if(scope.injectedStylesheets[i].href === href){
+					scope.injectedStylesheets.splice(i, 1);
+					return;
 				}
 			}
-		};
+		}
+	};
 
         // Used to remove all of the CSS files added with the function `addStylesheet`
         var removeAll = function()
