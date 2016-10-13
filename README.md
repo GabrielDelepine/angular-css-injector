@@ -1,4 +1,11 @@
 =====
+Out of date
+====
+Hi,
+This repo is out of date. Check out the issues to know about the limitations. There is plenty of forks and you can probably find one more appropriate.
+Sorry guys, I have to choose my priorities. This code comes with a MIT license, feel free to improve and maintained it.
+
+=====
 Compatibility
 ====
 The code was tested with angular 1.4.x
