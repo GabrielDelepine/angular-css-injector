@@ -53,6 +53,12 @@ angular.module('angular.css.injector', [])
             scope.injectedStylesheets.push({href: href});
         };
 
+        // gets all stylesheets
+        var getStyleSheets = function() {
+            _initScope();
+            return scope.injectedStylesheets === undefined ? [] : scope.injectedStylesheets;
+        }
+
 		var remove = function(href){
 			_initScope();
 
@@ -78,7 +84,8 @@ angular.module('angular.css.injector', [])
         return {
             add: addStylesheet,
 			remove: remove,
-            removeAll: removeAll
+            removeAll: removeAll,
+            getAll: getStyleSheets
         };
 	}
 
